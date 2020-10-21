@@ -9,11 +9,11 @@ const useStyles = makeStyles(styles);
 export default function Home() {
   const classes = useStyles();
   return (
-    <>
+    <div style={{ marginTop: "42px" }}>
       <Parallax image={require("../../assets/img/background.PNG")} />
       <div className={classes.container}>
         <SearchSection />
       </div>
-    </>
+    </div>
   );
 }
