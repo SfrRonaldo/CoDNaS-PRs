@@ -10,7 +10,7 @@ const App = () => (
   <Router>
     <div>
       <Header
-        brand="CoDNaS-PRs"
+        brand="PROTEÍNAS REPETIDAS"
         rightLinks={<HeaderLinks />}
         fixed
         color="primary"

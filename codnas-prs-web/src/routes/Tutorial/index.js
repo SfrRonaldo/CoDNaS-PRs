@@ -11,7 +11,7 @@ export default function Tutorial() {
   const classes = useStyles();
   return (
     <div>
-      <Parallax filter image={require("../../assets/img/bg4.jpg")} small />
+      <Parallax image={require("../../assets/img/background.PNG")} />
       <div className={classes.container}>
         <Section1 />
       </div>

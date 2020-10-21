@@ -10,8 +10,8 @@ export default function Home() {
   const classes = useStyles();
   return (
     <>
-      <Parallax image={require("../../assets/img/bg4.jpg")} small />
-      <div className={classes.container} style={{ marginBottom: "30px" }}>
+      <Parallax image={require("../../assets/img/background.PNG")} />
+      <div className={classes.container}>
         <SearchSection />
       </div>
     </>

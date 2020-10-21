@@ -1,23 +1,89 @@
-import { Card, CardContent, makeStyles } from "@material-ui/core";
+import {
+  Button,
+  Card,
+  CardContent,
+  makeStyles,
+  TextField,
+} from "@material-ui/core";
 import React from "react";
 import GridContainer from "../../../components/Grid/GridContainer";
 import GridItem from "../../../components/Grid/GridItem";
 import styles from "./searchStyle.js";
+import { Link } from "react-router-dom";
+import TutorialIcon from "@material-ui/icons/MenuBook";
+import s from "./Search.css";
+import useStylesCss from "isomorphic-style-loader/useStyles";
 
 const useStyles = makeStyles(styles);
 
 export default function SearchSection() {
+  useStylesCss(s);
   const classes = useStyles();
   return (
     <div>
       <GridContainer justify="center">
         <GridItem xs={12} sm={12} md={12}>
-          <Card className={classes.card} style={{ marginTop: "-95px" }}>
+          <Card className={classes.card} style={{ marginTop: "-590px" }}>
             <CardContent>
-              <h2 className={classes.title}>
-                Herramienta Para El Análisis De Diversidad Conformacional En
-                Estructuras De Proteínas Repetidas
-              </h2>
+              <GridContainer justify="center">
+                <GridItem xs={12} sm={12} md={12}>
+                  <h2 className={classes.title}>
+                    Herramienta Para El Análisis De Diversidad Conformacional En
+                    Estructuras De Proteínas Repetidas
+                  </h2>
+                </GridItem>
+              </GridContainer>
+              <GridContainer justify="center">
+                <GridItem xs={12} sm={12} md={12}>
+                  <TextField
+                    id="outlined-basic"
+                    label="Search"
+                    variant="outlined"
+                    size="small"
+                    style={{
+                      marginRight: "10px",
+                      width: "1000",
+                      marginBottom: "10px",
+                    }}
+                  />
+                  <Button
+                    variant="contained"
+                    style={{ backgroundColor: "#cb6768", color: "white" }}
+                  >
+                    <Link className={s.linkSearch} to="/detail">
+                      Estimar
+                    </Link>
+                  </Button>
+                </GridItem>
+              </GridContainer>
+              <p
+                style={{
+                  color: "#cb6768",
+                  fontWeight: "bold",
+                  fontSize: "18px",
+                }}
+              >
+                Ingresar una cadena de proteína repetida para analizar la
+                diversidad conformacional
+              </p>
+              <GridContainer justify="center">
+                <GridItem xs={12} sm={12} md={12}>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    style={{
+                      marginBottom: "15px",
+                      color: "#cb6768",
+                      textTransform: "capitalize",
+                      fontWeight: "bold",
+                    }}
+                    href="/tutorial"
+                  >
+                    <TutorialIcon style={{ marginRight: "7px" }} /> How to
+                    explore CoDNaS-RNA
+                  </Button>
+                </GridItem>
+              </GridContainer>
             </CardContent>
           </Card>
         </GridItem>
