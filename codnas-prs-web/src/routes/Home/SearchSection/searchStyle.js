@@ -12,7 +12,7 @@ const searchStyle = {
     minHeight: "32px",
     textDecoration: "none",
     textAlign: "center",
-    fontSize: "40px",
+    fontSize: "48px",
   },
   description: {
     color: "#999",

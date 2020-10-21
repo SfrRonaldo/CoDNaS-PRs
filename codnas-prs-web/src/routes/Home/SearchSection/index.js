@@ -9,15 +9,11 @@ import React from "react";
 import GridContainer from "../../../components/Grid/GridContainer";
 import GridItem from "../../../components/Grid/GridItem";
 import styles from "./searchStyle.js";
-import { Link } from "react-router-dom";
 import TutorialIcon from "@material-ui/icons/MenuBook";
-import s from "./Search.css";
-import useStylesCss from "isomorphic-style-loader/useStyles";
 
 const useStyles = makeStyles(styles);
 
 export default function SearchSection() {
-  useStylesCss(s);
   const classes = useStyles();
   return (
     <div>
@@ -49,10 +45,9 @@ export default function SearchSection() {
                   <Button
                     variant="contained"
                     style={{ backgroundColor: "#cb6768", color: "white" }}
+                    href="/detail"
                   >
-                    <Link className={s.linkSearch} to="/detail">
-                      Estimar
-                    </Link>
+                    Estimar
                   </Button>
                 </GridItem>
               </GridContainer>
@@ -60,7 +55,7 @@ export default function SearchSection() {
                 style={{
                   color: "#cb6768",
                   fontWeight: "bold",
-                  fontSize: "18px",
+                  fontSize: "20px",
                 }}
               >
                 Ingresar una cadena de proteína repetida para analizar la
@@ -79,8 +74,8 @@ export default function SearchSection() {
                     }}
                     href="/tutorial"
                   >
-                    <TutorialIcon style={{ marginRight: "7px" }} /> How to
-                    explore CoDNaS-RNA
+                    <TutorialIcon style={{ marginRight: "7px" }} /> ¿CÓMO
+                    EVALUAR?
                   </Button>
                 </GridItem>
               </GridContainer>
