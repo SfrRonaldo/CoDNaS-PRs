@@ -159,12 +159,43 @@ const cardSubtitle = {
   marginTop: "-.375rem",
 };
 
+const mainRaisedFluid = {
+  margin: "-95px 30px 0px",
+  borderRadius: "6px",
+  boxShadow:
+    "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)",
+};
+
+const mainRaised = {
+  ...mainRaisedFluid,
+  "@media (min-width: 576px)": {
+    margin: "-95px 30px 0px",
+  },
+  "@media (min-width: 768px)": {
+    margin: "-95px 60px 0px",
+  },
+  "@media (min-width: 992px)": {
+    margin: "-95px 90px 0px",
+  },
+  "@media (min-width: 1200px)": {
+    margin: "-95px 120px 0px",
+  },
+  "@media (min-width: 1500px)": {
+    margin: "-95px 300px 0px",
+  },
+  "@media (min-width: 1750px)": {
+    margin: "-95px 472px 0px",
+  },
+};
+
 export {
   //variables
   drawerWidth,
   transition,
   container,
   containerFluid,
+  mainRaised,
+  mainRaisedFluid,
   boxShadow,
   card,
   defaultFont,
