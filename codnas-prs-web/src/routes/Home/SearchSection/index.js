@@ -45,7 +45,7 @@ export default function SearchSection() {
                   <Button
                     variant="contained"
                     style={{ backgroundColor: "#cb6768", color: "white" }}
-                    href="/detail"
+                    href="/detail/azucar"
                   >
                     Estimar
                   </Button>
