@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import HeaderLinks from "./components/Header/HeaderLinks";
+import Home from "./routes/Home/index";
+import Tutorial from "./routes/Tutorial";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const App = () => (
+  <Router>
+    <div>
+      <Header
+        brand="CoDNaS-PRs"
+        rightLinks={<HeaderLinks />}
+        fixed
+        color="primary"
+        changeColorOnScroll={{ height: 400, color: "dark" }}
+      />
+      <main>
+        <Switch>
+          <Route path="/home" component={Home} />
+          <Route path="/tutorial" component={Tutorial} />
+          <Route path="/" component={Home} />
+        </Switch>
+      </main>
+      <Footer />
     </div>
-  );
-}
+  </Router>
+);
 
 export default App;
