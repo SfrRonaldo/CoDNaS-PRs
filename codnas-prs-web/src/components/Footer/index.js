@@ -14,7 +14,7 @@ export default function Footer(props) {
     [classes.footerWhiteFont]: whiteFont,
   });
   return (
-    <footer className={footerClasses}>
+    <footer className={footerClasses} style={{ backgroundColor: "#cb6768" }}>
       <div className={classes.container}>
         <div>
           &copy; {1900 + new Date().getYear()}. Hecho por Ronaldo Romario Tunque

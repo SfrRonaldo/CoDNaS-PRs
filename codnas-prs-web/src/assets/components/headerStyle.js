@@ -54,7 +54,8 @@ const headerStyle = {
   title: {
     ...defaultFont,
     lineHeight: "30px",
-    fontSize: "18px",
+    fontSize: "20px",
+    fontWeight: "400",
     borderRadius: "3px",
     textTransform: "none",
     color: "inherit",
@@ -70,7 +71,7 @@ const headerStyle = {
   },
   primary: {
     backgroundColor: primaryColor,
-    color: "#FFFFFF",
+    color: "#000",
     boxShadow:
       "0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(156, 39, 176, 0.46)",
   },
