@@ -52,7 +52,7 @@ export default function Header(props) {
   };
   const { color, rightLinks, leftLinks, brand, fixed, absolute } = props;
   const brandComponent = (
-    <Button className={classes.title} href="./home">
+    <Button className={classes.title} href="/home">
       {brand}
     </Button>
   );
