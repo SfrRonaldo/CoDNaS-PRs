@@ -1,6 +1,6 @@
 import { title } from "../../../assets/material-kit-react";
 
-const infoGeneralStyle = {
+const conformacionStyle = {
   section: {
     padding: "0 0",
     textAlign: "center",
@@ -22,6 +22,9 @@ const infoGeneralStyle = {
   table: {
     minWidth: "auto",
   },
+  cell: {
+    fontWeight: "bold",
+  },
 };
 
-export default infoGeneralStyle;
+export default conformacionStyle;

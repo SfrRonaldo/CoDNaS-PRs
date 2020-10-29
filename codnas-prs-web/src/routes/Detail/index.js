@@ -4,21 +4,30 @@ import { makeStyles } from "@material-ui/core/styles";
 import styles from "../../assets/views/detailStyle";
 import InfoGeneral from "./InfoGeneral";
 import { useParams } from "react-router-dom";
+import Conformacion from "./Conformacion";
 
 const useStyles = makeStyles(styles);
 
 export default function Detail() {
-  const [infoGeneral, setInfoGeneral] = useState([]);
   const { id } = useParams();
+  const [infoGeneral, setInfoGeneral] = useState([]);
+  const [conformacion, setConformacion] = useState(null);
 
   useEffect(() => {
-    fetchData(id);
+    fetchInfoGeneral(id);
+    fetchConformacion(id);
   }, [id]);
 
-  const fetchData = async (id) => {
+  const fetchInfoGeneral = async (id) => {
     const result = await fetch("/api/GetInfoGeneral/".concat(id));
     const data = await result.json();
     setInfoGeneral(data.InfoGeneral);
+  };
+
+  const fetchConformacion = async (id) => {
+    const result = await fetch("/api/GetConformacion/".concat(id));
+    const data = await result.json();
+    setConformacion(data.Conformacion);
   };
 
   const classes = useStyles();
@@ -37,6 +46,9 @@ export default function Detail() {
             key={id}
           />
         ))}
+      </div>
+      <div className={classes.container} style={{ marginBottom: "30px" }}>
+        {conformacion && <Conformacion data={conformacion} />}
       </div>
     </div>
   );

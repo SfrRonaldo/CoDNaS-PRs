@@ -24,9 +24,7 @@ api = Api(app)
 class GetInfoGeneral(Resource):
   def get(self, pdb_id):
     try:
-
       _pdbId = pdb_id
-      print(_pdbId)
       conn = mysql.connection
       cursor = conn.cursor()
       stmt = ("select * from info_general where pdb_id = %(pdb_id)s")
@@ -42,10 +40,9 @@ class GetInfoGeneral(Resource):
       return { 'error': str(e) }
 
 class GetConformacion(Resource):
-  def post(self, pdb_id):
+  def get(self, pdb_id):
     try:
       _pdbId = pdb_id
-
       conn = mysql.connection
       cursor = conn.cursor()
       stmt = ("select * from conformacion where pdb_id = %(pdb_id)s")
@@ -85,7 +82,7 @@ class GetInfoEstructural(Resource):
 
 
 api.add_resource(GetInfoGeneral, '/api/GetInfoGeneral/<pdb_id>')
-api.add_resource(GetConformacion, '/api/GetConformacion')
+api.add_resource(GetConformacion, '/api/GetConformacion/<pdb_id>')
 
 #if __name__ == '__main__':
 #  app.run()
