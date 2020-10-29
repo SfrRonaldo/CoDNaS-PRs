@@ -29,9 +29,9 @@ const InfoGeneral = ({
     <div>
       <GridContainer justify="center">
         <GridItem xs={12} sm={12} md={12}>
-          <Card className={classes.card} style={{ marginTop: "-725px" }}>
+          <Card className={classes.card} style={{ marginTop: "-175px" }}>
             <CardContent>
-              <h2 className={classes.title}>{pdb_id}</h2>
+              <h1 className={classes.title}>{pdb_id}</h1>
               <h2 className={classes.title} style={{ textAlign: "left" }}>
                 Información General
               </h2>

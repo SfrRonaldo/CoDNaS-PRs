@@ -8,7 +8,6 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableFooter,
   TableHead,
   TablePagination,
   TableRow,
@@ -113,7 +112,7 @@ const Conformacion = ({ data }) => {
     <div>
       <GridContainer justify="center">
         <GridItem xs={12} sm={12} md={12}>
-          <Card className={classes.card} style={{ marginTop: "-270px" }}>
+          <Card className={classes.card}>
             <CardContent>
               <h2 className={classes.title} style={{ textAlign: "left" }}>
                 Conformaciones
@@ -179,30 +178,28 @@ const Conformacion = ({ data }) => {
                         </TableRow>
                       ))}
                   </TableBody>
-                  <TableFooter>
-                    <TablePagination
-                      rowsPerPageOptions={[
-                        5,
-                        10,
-                        15,
-                        { label: "Todo", value: data.length },
-                      ]}
-                      colSpan={5}
-                      count={data.length}
-                      rowsPerPage={rowsPerPage}
-                      page={page}
-                      SelectProps={{
-                        inputProps: { "aria-label": "PDB por página" },
-                        native: true,
-                      }}
-                      onChangePage={handleChangePage}
-                      onChangeRowsPerPage={handleChangeRowsPerPage}
-                      ActionsComponent={TablePaginationActions}
-                      labelRowsPerPage="PDB por página"
-                    />
-                  </TableFooter>
                 </Table>
               </TableContainer>
+              <TablePagination
+                rowsPerPageOptions={[
+                  5,
+                  10,
+                  15,
+                  { label: "Todo", value: data.length },
+                ]}
+                component="div"
+                count={data.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: { "aria-label": "PDB por página" },
+                  native: true,
+                }}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+                labelRowsPerPage="PDB por página"
+              />
             </CardContent>
           </Card>
         </GridItem>

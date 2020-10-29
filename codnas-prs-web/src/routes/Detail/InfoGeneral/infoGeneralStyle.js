@@ -20,7 +20,7 @@ const infoGeneralStyle = {
     maxWidth: "auto",
   },
   table: {
-    minWidth: "auto",
+    minWidth: "500px",
   },
 };
 

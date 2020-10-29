@@ -32,8 +32,8 @@ export default function Detail() {
 
   const classes = useStyles();
   return (
-    <div style={{ marginTop: "42px" }}>
-      <Parallax image={require("../../assets/img/background.PNG")} />
+    <div style={{ marginTop: "60px" }}>
+      <Parallax image={require("../../assets/img/background.PNG")} small />
       <div className={classes.container}>
         {infoGeneral.map((r, id) => (
           <InfoGeneral
@@ -47,6 +47,7 @@ export default function Detail() {
           />
         ))}
       </div>
+      <br />
       <div className={classes.container} style={{ marginBottom: "30px" }}>
         {conformacion && <Conformacion data={conformacion} />}
       </div>
