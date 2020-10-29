@@ -5,16 +5,28 @@ import {
   makeStyles,
   TextField,
 } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import GridContainer from "../../../components/Grid/GridContainer";
 import GridItem from "../../../components/Grid/GridItem";
 import styles from "./searchStyle.js";
 import TutorialIcon from "@material-ui/icons/MenuBook";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(styles);
 
 export default function SearchSection() {
   const classes = useStyles();
+  const [input, setInput] = useState("");
+  const history = useHistory();
+
+  function push(e) {
+    if (e.key === "Enter") {
+      if (input !== "") {
+        history.push("/detail/".concat(input));
+      }
+    }
+  }
+
   return (
     <div>
       <GridContainer justify="center">
@@ -33,7 +45,7 @@ export default function SearchSection() {
                 <GridItem xs={12} sm={12} md={12}>
                   <TextField
                     id="outlined-basic"
-                    label="Search"
+                    label="Proteína repetida"
                     variant="outlined"
                     size="small"
                     style={{
@@ -41,11 +53,15 @@ export default function SearchSection() {
                       width: "1000",
                       marginBottom: "10px",
                     }}
+                    onChange={(e) => {
+                      setInput(e.target.value);
+                    }}
+                    onKeyPress={push}
                   />
                   <Button
                     variant="contained"
                     style={{ backgroundColor: "#cb6768", color: "white" }}
-                    href="/detail/azucar"
+                    href={input === "" ? "/home" : "/detail/".concat(input)}
                   >
                     Estimar
                   </Button>
