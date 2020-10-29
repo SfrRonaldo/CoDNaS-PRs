@@ -44,8 +44,38 @@ export default function SearchSection() {
               <GridContainer justify="center">
                 <GridItem xs={12} sm={12} md={12}>
                   <TextField
-                    id="outlined-basic"
-                    label="Proteína repetida"
+                    id="outlined-basic1"
+                    label="Proteína Repetida"
+                    variant="outlined"
+                    size="small"
+                    style={{
+                      marginRight: "10px",
+                      width: "1000",
+                      marginBottom: "10px",
+                    }}
+                    onChange={(e) => {
+                      setInput(e.target.value);
+                    }}
+                    onKeyPress={push}
+                  />
+                  <TextField
+                    id="outlined-basic2"
+                    label="Límite Inferior"
+                    variant="outlined"
+                    size="small"
+                    style={{
+                      marginRight: "10px",
+                      width: "1000",
+                      marginBottom: "10px",
+                    }}
+                    onChange={(e) => {
+                      setInput(e.target.value);
+                    }}
+                    onKeyPress={push}
+                  />
+                  <TextField
+                    id="outlined-basic3"
+                    label="Límite Superior"
                     variant="outlined"
                     size="small"
                     style={{
@@ -66,6 +96,30 @@ export default function SearchSection() {
                     Estimar
                   </Button>
                 </GridItem>
+                <GridItem xs={12} sm={12} md={12} style={{ marginTop: "10px" }}>
+                  <TextField
+                    id="outlined-basic4"
+                    label="Proteína Repetida"
+                    variant="outlined"
+                    size="small"
+                    style={{
+                      marginRight: "10px",
+                      width: "1000",
+                      marginBottom: "10px",
+                    }}
+                    onChange={(e) => {
+                      setInput(e.target.value);
+                    }}
+                    onKeyPress={push}
+                  />
+                  <Button
+                    variant="contained"
+                    style={{ backgroundColor: "#cb6768", color: "white" }}
+                    href={input === "" ? "/home" : "/detail/".concat(input)}
+                  >
+                    Buscar
+                  </Button>
+                </GridItem>
               </GridContainer>
               <p
                 style={{
@@ -75,7 +129,7 @@ export default function SearchSection() {
                 }}
               >
                 Ingresar una cadena de proteína repetida para analizar la
-                diversidad conformacional
+                diversidad conformacional o buscarla en la base de datos
               </p>
               <GridContainer justify="center">
                 <GridItem xs={12} sm={12} md={12}>

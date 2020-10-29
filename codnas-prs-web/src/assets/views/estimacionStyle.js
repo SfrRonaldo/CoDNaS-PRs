@@ -1,6 +1,6 @@
 import { container, title, mainRaised } from "../material-kit-react";
 
-const detailStyle = {
+const estimacionStyle = {
   container: {
     zIndex: "12",
     color: "black",
@@ -36,4 +36,4 @@ const detailStyle = {
   },
 };
 
-export default detailStyle;
+export default estimacionStyle;
