@@ -1,6 +1,6 @@
 import { title } from "../../../assets/material-kit-react";
 
-const conformacionStyle = {
+const infoEstructuralStyles = {
   section: {
     padding: "0 0",
     textAlign: "center",
@@ -21,11 +21,8 @@ const conformacionStyle = {
     maxWidth: "auto",
   },
   table: {
-    minWidth: "auto",
-  },
-  cell: {
-    fontWeight: "bold",
+    minWidth: "500px",
   },
 };
 
-export default conformacionStyle;
+export default infoEstructuralStyles;

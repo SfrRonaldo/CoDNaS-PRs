@@ -58,23 +58,18 @@ class GetConformacion(Resource):
       return { 'error': str(e) }
 
 class GetInfoEstructural(Resource):
-  def post(self):
+  def get(self, pdb_id):
     try:
-      parser = reqparse.RequestParser()
-      parser.add_argument('pdb_id', type=str)
-      args = parser.parse_args()
-
-      _pdbId = args['pdb_id']
-
+      _pdbId = pdb_id
       conn = mysql.connection
       cursor = conn.cursor()
       stmt = ("select * from info_estructural where pdb_id = %(pdb_id)s")
-      cursor.execute(stmt, { 'pdb_id': '_pdbId' })
+      cursor.execute(stmt, { 'pdb_id': _pdbId })
       data = cursor.fetchall()
       r = {
         'StatusCode': '200',
         'Message': 'Success',
-        'Conformacion': data
+        'InfoEstructural': data
       }
       return r
     except Exception as e:
@@ -83,6 +78,7 @@ class GetInfoEstructural(Resource):
 
 api.add_resource(GetInfoGeneral, '/api/GetInfoGeneral/<pdb_id>')
 api.add_resource(GetConformacion, '/api/GetConformacion/<pdb_id>')
+api.add_resource(GetInfoEstructural, '/api/GetInfoEstructural/<pdb_id>')
 
 #if __name__ == '__main__':
 #  app.run()

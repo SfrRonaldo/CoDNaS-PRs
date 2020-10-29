@@ -114,9 +114,7 @@ const Conformacion = ({ data }) => {
         <GridItem xs={12} sm={12} md={12}>
           <Card className={classes.card}>
             <CardContent>
-              <h2 className={classes.title} style={{ textAlign: "left" }}>
-                Conformaciones
-              </h2>
+              <h2 className={classes.title}>Conformaciones</h2>
               <TableContainer component={Paper}>
                 <Table
                   className={classes.table}

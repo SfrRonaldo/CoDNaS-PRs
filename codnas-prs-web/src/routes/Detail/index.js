@@ -5,6 +5,7 @@ import styles from "../../assets/views/detailStyle";
 import InfoGeneral from "./InfoGeneral";
 import { useParams } from "react-router-dom";
 import Conformacion from "./Conformacion";
+import InfoEstructural from "./InfoEstructural";
 
 const useStyles = makeStyles(styles);
 
@@ -12,9 +13,11 @@ export default function Detail() {
   const { id } = useParams();
   const [infoGeneral, setInfoGeneral] = useState([]);
   const [conformacion, setConformacion] = useState(null);
+  const [infoEstructural, setInfoEstructural] = useState(null);
 
   useEffect(() => {
     fetchInfoGeneral(id);
+    fetchInfoEstructural(id);
     fetchConformacion(id);
   }, [id]);
 
@@ -22,6 +25,12 @@ export default function Detail() {
     const result = await fetch("/api/GetInfoGeneral/".concat(id));
     const data = await result.json();
     setInfoGeneral(data.InfoGeneral);
+  };
+
+  const fetchInfoEstructural = async (id) => {
+    const result = await fetch("/api/GetInfoEstructural/".concat(id));
+    const data = await result.json();
+    setInfoEstructural(data.InfoEstructural[0]);
   };
 
   const fetchConformacion = async (id) => {
@@ -46,6 +55,17 @@ export default function Detail() {
             key={id}
           />
         ))}
+      </div>
+      <br />
+      <div className={classes.container}>
+        {infoEstructural && (
+          <InfoEstructural
+            num_conformaciones={infoEstructural.num_conformaciones}
+            rmsd_min={infoEstructural.rmsd_min}
+            rmsd_max={infoEstructural.rmsd_max}
+            rmsd_avg={infoEstructural.rmsd_avg}
+          />
+        )}
       </div>
       <br />
       <div className={classes.container} style={{ marginBottom: "30px" }}>
