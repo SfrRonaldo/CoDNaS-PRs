@@ -4,21 +4,27 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useParams } from "react-router-dom";
 import styles from "../../assets/views/detailStyle";
 import InfoGeneral from "./InfoGeneral";
+import Conformacion from "./Conformacion";
+import InfoEstructural from "./InfoEstructural";
 
 const useStyles = makeStyles(styles);
 
 export default function Estimacion() {
   const { id } = useParams();
   const [infoGeneral, setInfoGeneral] = useState(null);
+  const [conformacion, setConformacion] = useState(null);
+  const [infoEstructural, setInfoEstructural] = useState(null);
 
   useEffect(() => {
-    fetchInfoGeneral(id);
+    fetchEstimar(id);
   }, [id]);
 
-  const fetchInfoGeneral = async (id) => {
-    const result = await fetch("/api/EstimarInfoGeneral/".concat(id));
+  const fetchEstimar = async (id) => {
+    const result = await fetch("/api/Estimar/".concat(id));
     const data = await result.json();
-    setInfoGeneral(data);
+    setInfoGeneral(data.info_general);
+    setInfoEstructural(data.info_estructural);
+    setConformacion(data.conformacion);
   };
 
   const classes = useStyles();
@@ -37,6 +43,21 @@ export default function Estimacion() {
             key={id}
           />
         )}
+      </div>
+      <br />
+      <div className={classes.container}>
+        {infoEstructural && (
+          <InfoEstructural
+            num_conformaciones={infoEstructural.num_conformaciones}
+            rmsd_min={infoEstructural.rmsd_min}
+            rmsd_max={infoEstructural.rmsd_max}
+            rmsd_avg={infoEstructural.rmsd_avg}
+          />
+        )}
+      </div>
+      <br />
+      <div className={classes.container} style={{ marginBottom: "30px" }}>
+        {conformacion && <Conformacion data={conformacion} />}
       </div>
     </div>
   );

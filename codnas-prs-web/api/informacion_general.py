@@ -12,7 +12,7 @@ def descargarPDB(pdb):
   pdb_structure_file = './Script/PDBStructure/' + pdb + '.pdb'
   io.save(pdb_structure_file)
 
-def obtenerInfoEstructural(pdb_id):
+def obtenerInfoGeneral(pdb_id):
   pdb_id = pdb_id.split('_')
   pdb = pdb_id[0]
   chain = pdb_id[1]
@@ -81,5 +81,5 @@ def obtenerInfoEstructural(pdb_id):
 
 def obtener(pdb_id):
   descargarPDB(pdb_id[:4])
-  info_estructural = obtenerInfoEstructural(pdb_id)
-  return info_estructural
+  info_general = obtenerInfoGeneral(pdb_id)
+  return info_general

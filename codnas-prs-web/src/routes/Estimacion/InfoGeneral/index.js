@@ -74,7 +74,7 @@ const InfoGeneral = ({
                         scope="row"
                         style={{ fontWeight: "bold" }}
                       >
-                        Longitud de secuencia:
+                        Región repetida:
                       </TableCell>
                       <TableCell>{region_repetida}</TableCell>
                     </TableRow>
