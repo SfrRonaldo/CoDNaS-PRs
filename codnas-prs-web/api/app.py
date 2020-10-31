@@ -8,9 +8,9 @@ import informacion_estructural
 app = Flask(__name__)
 
 # Configurar DB
-app.config['MYSQL_HOST'] = 'codnas-prs.ckptsjkylhhm.us-east-1.rds.amazonaws.com'
+app.config['MYSQL_HOST'] = ''
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'CwOqhZtemfZeqqWewJaR'
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'codnas-prs'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 

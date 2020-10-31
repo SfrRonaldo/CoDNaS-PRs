@@ -27,7 +27,12 @@ const App = () => (
           <Route path="/" component={Home} />
         </Switch>
       </main>
-      <Footer />
+      <Footer>
+        <span>
+          &copy; {1900 + new Date().getYear()}, Hecho por Ronaldo Romario Tunque
+          Cahui
+        </span>
+      </Footer>
     </div>
   </Router>
 );

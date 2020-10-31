@@ -31,7 +31,7 @@ export default function SearchSection() {
     <div>
       <GridContainer justify="center">
         <GridItem xs={12} sm={12} md={12}>
-          <Card className={classes.card} style={{ marginTop: "-620px" }}>
+          <Card className={classes.card} style={{ marginTop: "-720px" }}>
             <CardContent>
               <GridContainer justify="center">
                 <GridItem xs={12} sm={12} md={12}>
