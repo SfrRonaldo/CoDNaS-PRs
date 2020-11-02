@@ -1,16 +1,19 @@
 import conformaciones
 from flask import Flask, jsonify
+from flask_cors import CORS
 from flask_mysqldb import MySQL
 from flask_restful import Resource, Api, reqparse
 import informacion_general
 import informacion_estructural
+import utils
 
 app = Flask(__name__)
+CORS(app)
 
 # Configurar DB
-app.config['MYSQL_HOST'] = ''
+app.config['MYSQL_HOST'] = 'codnas-prs.ckptsjkylhhm.us-east-1.rds.amazonaws.com'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = 'CwOqhZtemfZeqqWewJaR'
 app.config['MYSQL_DB'] = 'codnas-prs'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
@@ -131,7 +134,31 @@ class Estimar(Resource):
     except Exception as e:
       return { 'error': str(e) }
 
+class GetAll(Resource):
+  def get(self):
+    try:
+      conn = mysql.connection
+      cursor = conn.cursor()
+      stmt = ("select pdb_id from info_general")
+      cursor.execute(stmt)
+      data = cursor.fetchall()
+      return data
+    except Exception as e:
+      return { 'error': str(e) }
 
+class Limpiar(Resource):
+  def get(self):
+    try:
+      utils.clean()
+      return 'CLEAN!'
+    except Exception as e:
+      return { 'error': str(e) }
+
+#@app.route('/')
+#def index():
+#    return app.send_static_file('index.html')
+
+api.add_resource(GetAll, '/api/GetAll')
 api.add_resource(GetInfoGeneral, '/api/GetInfoGeneral/<pdb_id>')
 api.add_resource(GetConformacion, '/api/GetConformacion/<pdb_id>')
 api.add_resource(GetInfoEstructural, '/api/GetInfoEstructural/<pdb_id>')
@@ -139,6 +166,7 @@ api.add_resource(EstimarInfoGeneral, '/api/EstimarInfoGeneral/<pdb_id>')
 api.add_resource(EstimarConformacion, '/api/EstimarConformacion/<pdb_id>')
 api.add_resource(EstimarInfoEstructural, '/api/EstimarInfoEstructural/<pdb_id>')
 api.add_resource(Estimar, '/api/Estimar/<pdb_id>')
+api.add_resource(Limpiar, '/api/Limpiar/')
 
 #if __name__ == '__main__':
 #  app.run()

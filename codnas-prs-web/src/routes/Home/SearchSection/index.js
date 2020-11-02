@@ -5,12 +5,13 @@ import {
   makeStyles,
   TextField,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import GridContainer from "../../../components/Grid/GridContainer";
 import GridItem from "../../../components/Grid/GridItem";
 import styles from "./searchStyle.js";
 import TutorialIcon from "@material-ui/icons/MenuBook";
 import { useHistory } from "react-router-dom";
+import { Autocomplete } from "@material-ui/lab";
 
 const useStyles = makeStyles(styles);
 
@@ -18,11 +19,39 @@ export default function SearchSection() {
   const classes = useStyles();
   const [input, setInput] = useState("");
   const history = useHistory();
+  const [prs, setPrs] = useState([]);
+  const [limInf, setLimInf] = useState(0);
+  const [limSup, setLimSup] = useState(0);
+
+  useEffect(() => {
+    fetchAllPR();
+  }, []);
+
+  const fetchAllPR = async () => {
+    const result = await fetch("/api/GetAll");
+    const data = await result.json();
+    setPrs(data);
+  };
 
   function push(e) {
     if (e.key === "Enter") {
-      if (input !== "") {
-        history.push("/detail/".concat(input));
+      if (!limSup && !limInf) {
+        if (input.length === 6) {
+          history.push("/detail/".concat(input));
+        }
+      } else {
+        if (limSup && limInf) {
+          if (input.length === 6) {
+            history.push(
+              "/estimacion/"
+                .concat(input)
+                .concat("_")
+                .concat(limInf)
+                .concat("_")
+                .concat(limSup)
+            );
+          }
+        }
       }
     }
   }
@@ -31,7 +60,7 @@ export default function SearchSection() {
     <div>
       <GridContainer justify="center">
         <GridItem xs={12} sm={12} md={12}>
-          <Card className={classes.card} style={{ marginTop: "-720px" }}>
+          <Card className={classes.card} style={{ marginTop: "-750px" }}>
             <CardContent>
               <GridContainer justify="center">
                 <GridItem xs={12} sm={12} md={12}>
@@ -43,79 +72,90 @@ export default function SearchSection() {
               </GridContainer>
               <GridContainer justify="center">
                 <GridItem xs={12} sm={12} md={12}>
-                  <TextField
-                    id="outlined-basic1"
-                    label="Proteína Repetida"
-                    variant="outlined"
-                    size="small"
-                    style={{
-                      marginRight: "10px",
-                      width: "1000",
-                      marginBottom: "10px",
+                  <Autocomplete
+                    id="combo-box-demo"
+                    options={prs}
+                    getOptionLabel={(option) => option.pdb_id}
+                    onInputChange={(event, newInputValue) => {
+                      setInput(newInputValue);
                     }}
-                    onChange={(e) => {
-                      setInput(e.target.value);
-                    }}
-                    onKeyPress={push}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Proteína Repetida"
+                        variant="outlined"
+                        style={{
+                          marginRight: "10px",
+                          width: "210px",
+                          marginBottom: "10px",
+                        }}
+                        size="small"
+                        onKeyPress={push}
+                      />
+                    )}
                   />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={12}>
                   <TextField
                     id="outlined-basic2"
-                    label="Límite Inferior"
+                    label="Inferior"
                     variant="outlined"
                     size="small"
+                    type="number"
                     style={{
                       marginRight: "10px",
-                      width: "1000",
+                      width: "100px",
                       marginBottom: "10px",
                     }}
                     onChange={(e) => {
-                      setInput(e.target.value);
+                      setLimInf(e.target.value);
                     }}
                     onKeyPress={push}
                   />
                   <TextField
                     id="outlined-basic3"
-                    label="Límite Superior"
+                    label="Superior"
                     variant="outlined"
                     size="small"
+                    type="number"
                     style={{
                       marginRight: "10px",
-                      width: "1000",
+                      width: "100px",
                       marginBottom: "10px",
                     }}
                     onChange={(e) => {
-                      setInput(e.target.value);
+                      setLimSup(e.target.value);
                     }}
                     onKeyPress={push}
                   />
+                </GridItem>
+                <GridItem xs={12} sm={12} md={12} style={{ marginTop: "10px" }}>
                   <Button
                     variant="contained"
-                    style={{ backgroundColor: "#cb6768", color: "white" }}
-                    href={input === "" ? "/home" : "/detail/".concat(input)}
+                    style={{
+                      backgroundColor: "#cb6768",
+                      color: "white",
+                      marginRight: "20px",
+                    }}
+                    href={
+                      !limInf || !limSup || input === ""
+                        ? "/home"
+                        : "/estimacion/"
+                            .concat(input)
+                            .concat("_")
+                            .concat(limInf)
+                            .concat("_")
+                            .concat(limSup)
+                    }
+                    disabled={!limInf || !limSup || input === "" ? true : false}
                   >
                     Estimar
                   </Button>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={12} style={{ marginTop: "10px" }}>
-                  <TextField
-                    id="outlined-basic4"
-                    label="Proteína Repetida"
-                    variant="outlined"
-                    size="small"
-                    style={{
-                      marginRight: "10px",
-                      width: "1000",
-                      marginBottom: "10px",
-                    }}
-                    onChange={(e) => {
-                      setInput(e.target.value);
-                    }}
-                    onKeyPress={push}
-                  />
                   <Button
                     variant="contained"
                     style={{ backgroundColor: "#cb6768", color: "white" }}
                     href={input === "" ? "/home" : "/detail/".concat(input)}
+                    disabled={input === "" ? true : false}
                   >
                     Buscar
                   </Button>

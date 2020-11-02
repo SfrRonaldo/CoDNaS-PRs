@@ -11,16 +11,28 @@ const sectionStyle = {
     marginTop: "30px",
     minHeight: "32px",
     textDecoration: "none",
+    textAlign: "center",
+  },
+  subtitle: {
+    ...title,
+    marginBottom: "1rem",
+    marginTop: "30px",
+    minHeight: "32px",
+    textDecoration: "none",
+    textAlign: "left",
   },
   description: {
     color: "#999",
-    fontWeight: "bold",
+    textAlign: "justify",
   },
   card: {
     maxWidth: "auto",
   },
   table: {
     minWidth: "auto",
+  },
+  image: {
+    width: "100%",
   },
 };
 

@@ -4,6 +4,8 @@ import Parallax from "../../components/Parallax";
 import styles from "../../assets/views/tutorialStyle";
 import Section1 from "./Section1";
 import Section2 from "./Section2";
+import Section3 from "./Section3";
+import Section4 from "./Section4";
 
 const useStyles = makeStyles(styles);
 
@@ -21,11 +23,11 @@ export default function Tutorial() {
       </div>
       <br />
       <div className={classes.container}>
-        <Section2 />
+        <Section3 />
       </div>
       <br />
-      <div className={classes.container} style={{ marginBottom: "30px" }}>
-        <Section2 />
+      <div className={classes.container} style={{ marginBottom: "100px" }}>
+        <Section4 />
       </div>
     </div>
   );

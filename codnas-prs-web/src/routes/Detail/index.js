@@ -6,6 +6,7 @@ import InfoGeneral from "./InfoGeneral";
 import { useParams } from "react-router-dom";
 import Conformacion from "./Conformacion";
 import InfoEstructural from "./InfoEstructural";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles(styles);
 
@@ -70,6 +71,15 @@ export default function Detail() {
       <br />
       <div className={classes.container} style={{ marginBottom: "30px" }}>
         {conformacion && <Conformacion data={conformacion} />}
+      </div>
+      <div className={classes.container} style={{ marginBottom: "100px" }}>
+        <Button
+          variant="contained"
+          style={{ backgroundColor: "#cb6768", color: "white" }}
+          href="/home"
+        >
+          Regresar
+        </Button>
       </div>
     </div>
   );
