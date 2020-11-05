@@ -34,6 +34,13 @@ const homeStyle = {
   mainRaised: {
     ...mainRaised,
   },
+  root: {
+    backgroundImage: "url(/background.PNG)",
+    backgroundSize: "auto",
+    height: "100%",
+    width: "100%",
+    paddingBottom: 260,
+  },
 };
 
 export default homeStyle;

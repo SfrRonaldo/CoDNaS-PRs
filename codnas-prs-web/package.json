@@ -15,7 +15,8 @@
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.4"
+    "react-scripts": "3.4.4",
+    "serve": "^11.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,5 +40,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://54.89.178.74/"
+  "proxy": "http://localhost:5000"
 }

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Parallax from "../../components/Parallax";
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "../../assets/views/detailStyle";
 import InfoGeneral from "./InfoGeneral";
@@ -42,8 +41,7 @@ export default function Detail() {
 
   const classes = useStyles();
   return (
-    <div style={{ marginTop: "60px" }}>
-      <Parallax image={require("../../assets/img/background.PNG")} small />
+    <div style={{ marginTop: "60px" }} className={classes.root}>
       <div className={classes.container}>
         {infoGeneral.map((r, id) => (
           <InfoGeneral

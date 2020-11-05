@@ -1,6 +1,5 @@
 import { makeStyles } from "@material-ui/core";
 import React from "react";
-import Parallax from "../../components/Parallax";
 import styles from "../../assets/views/tutorialStyle";
 import Section1 from "./Section1";
 import Section2 from "./Section2";
@@ -12,8 +11,7 @@ const useStyles = makeStyles(styles);
 export default function Tutorial() {
   const classes = useStyles();
   return (
-    <div>
-      <Parallax image={require("../../assets/img/background.PNG")} small />
+    <div className={classes.root}>
       <div className={classes.container}>
         <Section1 />
       </div>

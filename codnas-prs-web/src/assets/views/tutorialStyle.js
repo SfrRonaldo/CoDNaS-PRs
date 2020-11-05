@@ -34,6 +34,13 @@ const tutorialStyle = {
   textCenter: {
     textAlign: "center",
   },
+  root: {
+    backgroundImage: "url(/background.PNG)",
+    backgroundSize: "auto",
+    height: "100%",
+    paddingBottom: 20,
+    opacity: 0.9,
+  },
 };
 
 export default tutorialStyle;

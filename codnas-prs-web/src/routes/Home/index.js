@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Parallax from "../../components/Parallax";
+//import Parallax from "../../components/Parallax";
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "../../assets/views/homeStyle";
 import SearchSection from "./SearchSection";
@@ -21,8 +21,8 @@ export default function Home() {
 
   const classes = useStyles();
   return (
-    <div style={{ marginTop: "42px" }}>
-      <Parallax image={require("../../assets/img/background.PNG")} />
+    <div style={{ marginTop: "42px" }} className={classes.root}>
+      {/*<Parallax image={require("../../assets/img/background.PNG")} />*/}
       <div className={classes.container}>
         <SearchSection />
       </div>

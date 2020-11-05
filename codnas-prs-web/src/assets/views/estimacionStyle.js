@@ -34,6 +34,13 @@ const estimacionStyle = {
   mainRaised: {
     ...mainRaised,
   },
+  root: {
+    backgroundImage: "url(/background.PNG)",
+    backgroundSize: "auto",
+    height: "100%",
+    opacity: 0.9,
+    paddingBottom: 10,
+  },
 };
 
 export default estimacionStyle;

@@ -12,7 +12,7 @@ export default function Section() {
     <div>
       <GridContainer justify="center">
         <GridItem xs={12} sm={12} md={12}>
-          <Card className={classes.card} style={{ marginTop: "-175px" }}>
+          <Card className={classes.card} style={{ marginTop: "100px" }}>
             <CardContent>
               <h1 className={classes.title}>Tutorial</h1>
               <h2 className={classes.subtitle}>

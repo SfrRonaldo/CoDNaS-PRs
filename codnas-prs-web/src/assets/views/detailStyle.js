@@ -34,6 +34,13 @@ const detailStyle = {
   mainRaised: {
     ...mainRaised,
   },
+  root: {
+    backgroundImage: "url(/background.PNG)",
+    backgroundSize: "auto",
+    opacity: 0.9,
+    height: "100%",
+    paddingBottom: 10,
+  },
 };
 
 export default detailStyle;
