@@ -2,6 +2,11 @@ import {
   Button,
   Card,
   CardContent,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   makeStyles,
   TextField,
 } from "@material-ui/core";
@@ -22,6 +27,11 @@ export default function SearchSection() {
   const [prs, setPrs] = useState([]);
   const [limInf, setLimInf] = useState(0);
   const [limSup, setLimSup] = useState(0);
+  const [is, setIs] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
+  const [open3, setOpen3] = useState(false);
+  const [longSecuencia, setLongSecuencia] = useState([]);
 
   useEffect(() => {
     fetchAllPR();
@@ -30,26 +40,68 @@ export default function SearchSection() {
   const fetchAllPR = async () => {
     const result = await fetch("/api/GetAll");
     const data = await result.json();
-    setPrs(data);
+    setPrs(data.data);
+    setIs(data.lista);
+    setLongSecuencia(data.long_secuencia);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClickOpen2 = () => {
+    setOpen2(true);
+  };
+
+  const handleClickOpen3 = () => {
+    setOpen3(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleClose2 = () => {
+    setOpen2(false);
+  };
+
+  const handleClose3 = () => {
+    setOpen3(false);
   };
 
   function push(e) {
     if (e.key === "Enter") {
       if (!limSup && !limInf) {
         if (input.length === 6) {
-          history.push("/detail/".concat(input));
+          if (is.includes(input)) {
+            history.push("/detail/".concat(input));
+          }
         }
       } else {
         if (limSup && limInf) {
           if (input.length === 6) {
-            history.push(
-              "/estimacion/"
-                .concat(input)
-                .concat("_")
-                .concat(limInf)
-                .concat("_")
-                .concat(limSup)
-            );
+            if (parseInt(limInf) <= 0) {
+              handleClickOpen3();
+            } else {
+              if (parseInt(limSup) <= parseInt(limInf)) {
+                handleClickOpen();
+              } else {
+                if (parseInt(limSup) > parseInt(limInf)) {
+                  if (longSecuencia[is.indexOf(input)] >= limSup) {
+                    history.push(
+                      "/estimacion/"
+                        .concat(input)
+                        .concat("_")
+                        .concat(limInf)
+                        .concat("_")
+                        .concat(limSup)
+                    );
+                  } else {
+                    handleClickOpen2();
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -57,16 +109,16 @@ export default function SearchSection() {
   }
 
   return (
-    <div>
+    <>
       <GridContainer justify="center">
         <GridItem xs={12} sm={12} md={12}>
-          <Card className={classes.card} style={{ marginTop: "70px" }}>
+          <Card className={classes.card} style={{ marginTop: "180px" }}>
             <CardContent>
               <GridContainer justify="center">
                 <GridItem xs={12} sm={12} md={12}>
                   <h2 className={classes.title}>
-                    Herramienta Para El Análisis De Diversidad Conformacional En
-                    Estructuras De Proteínas Repetidas
+                    Herramienta para el análisis de diversidad conformacional en
+                    estructuras de proteínas repetidas
                   </h2>
                 </GridItem>
               </GridContainer>
@@ -193,6 +245,53 @@ export default function SearchSection() {
           </Card>
         </GridItem>
       </GridContainer>
-    </div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title-1">{"Sugerencia"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description-1">
+            Estimado usuario, el límite superior debe ser mayor que el límite
+            inferior.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="secondary">
+            Aceptar
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={open2} onClose={handleClose2}>
+        <DialogTitle id="alert-dialog-title-2">{"Sugerencia"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description-2">
+            Estimado usuario, el límite superior supera la longitud de la
+            secuencia ({longSecuencia[is.indexOf(input)]}) de la proteína
+            repetida.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose2} color="secondary">
+            Aceptar
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={open3} onClose={handleClose3}>
+        <DialogTitle id="alert-dialog-title-3">{"Sugerencia"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description-3">
+            Estimado usuario, el valor del límite inferior debe ser mayor que 0.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose3} color="secondary">
+            Aceptar
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }

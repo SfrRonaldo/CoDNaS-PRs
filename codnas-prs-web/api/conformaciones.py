@@ -1,6 +1,7 @@
 import Bio
 from Bio.PDB import PDBParser, PDBIO, PDBList
 import csv
+import itertools
 import os
 import subprocess
 
@@ -8,7 +9,7 @@ def descargarPDB(pdb):
   pdbl = PDBList()
   pdbl.retrieve_pdb_file(pdb, pdir = './Script/PDB', file_format = 'pdb')
   parser = PDBParser()
-  ent_file ='./Script/PDB/pdb' + pdb + '.ent'
+  ent_file ='./Script/PDB/pdb' + pdb.lower() + '.ent'
   structure = parser.get_structure(pdb, ent_file)
   io = PDBIO()
   io.set_structure(structure)
@@ -106,7 +107,7 @@ def generarConformersFiles(lista):
       pdb = conformer[0]
       chain = conformer[1]
       model = 0
-    descargarPDB(pdb)
+    #descargarPDB(pdb)
     generarPDBFile(pdb, chain, model)
 
 def crearDirectorios(directorio):
@@ -210,16 +211,24 @@ def calcularRMSD(conformer_1, conformer_2):
 def diversidadConformacional(pdb, pdb_id):
   lista_DC = []
   lista = os.listdir('./Script/Conformers/' + pdb)
-  for conformer in lista:
-    if (pdb not in conformer):
-      aux = conformer.split('_')
-      pdb_conformer = aux[0]
-      chain_conformer = aux[1]
-      lim_inf = aux[2]
+  pares = list(itertools.combinations(lista, 2))
+  if (len(pares) < 100):
+    for tupla in pares:
+      conformer1, conformer2 = tupla
+      aux = conformer1.split('_')
+      pdb_conformer1 = aux[0]
+      chain_conformer1 = aux[1]
+      lim_inf_conformer1 = aux[2]
       aux = aux[3].split('.')
-      lim_sup = aux[0]
-      conformer_1 = './Script/Conformers/' + pdb + '/' + pdb_id + '.pdb'
-      conformer_2 = './Script/Conformers/' + pdb + '/' + conformer
+      lim_sup_conformer1 = aux[0]
+      aux = conformer2.split('_')
+      pdb_conformer2 = aux[0]
+      chain_conformer2 = aux[1]
+      lim_inf_conformer2 = aux[2]
+      aux = aux[3].split('.')
+      lim_sup_conformer2 = aux[0]
+      conformer_1 = './Script/Conformers/' + pdb + '/' + conformer1
+      conformer_2 = './Script/Conformers/' + pdb + '/' + conformer2
       calcularRMSD(conformer_1, conformer_2)
       rmsd_file = open('./Script/TextFiles/output_rmsd.txt', 'r')
       for linea in rmsd_file.readlines():
@@ -228,9 +237,31 @@ def diversidadConformacional(pdb, pdb_id):
           rmsd = line[7]
         if ('Seq.sim=' in linea):
           line = linea.split()
-          pair = pdb_conformer + '_' + chain_conformer, rmsd, line[3], lim_inf, lim_sup
+          pair = pdb_conformer1 + '_' + chain_conformer1, rmsd, line[3], lim_inf_conformer1, lim_sup_conformer1, pdb_conformer2 + '_' + chain_conformer2, lim_inf_conformer2, lim_sup_conformer2
           lista_DC.append(pair)
           break
+  else:
+    for conformer in lista:
+      if (pdb not in conformer):
+        aux = conformer.split('_')
+        pdb_conformer = aux[0]
+        chain_conformer = aux[1]
+        lim_inf = aux[2]
+        aux = aux[3].split('.')
+        lim_sup = aux[0]
+        conformer_1 = './Script/Conformers/' + pdb + '/' + pdb_id + '.pdb'
+        conformer_2 = './Script/Conformers/' + pdb + '/' + conformer
+        calcularRMSD(conformer_1, conformer_2)
+        rmsd_file = open('./Script/TextFiles/output_rmsd.txt', 'r')
+        for linea in rmsd_file.readlines():
+          if ('Sstr(LG)' in linea):
+            line = linea.split()
+            rmsd = line[7]
+          if ('Seq.sim=' in linea):
+            line = linea.split()
+            pair = pdb_conformer + '_' + chain_conformer, rmsd, line[3], lim_inf, lim_sup, pdb, lim_inf, lim_sup
+            lista_DC.append(pair)
+            break
   return lista_DC
 
 def generarCsv(lista, pdb):
@@ -238,10 +269,10 @@ def generarCsv(lista, pdb):
   crearDirectorios(directorio)
   with open(directorio + 'diversidad_conformacional.csv', 'w') as out_file:
     csv_writer = csv.writer(out_file, delimiter = ',', lineterminator = '\n')
-    csv_writer.writerow(['conformero', 'lim_inf', 'lim_sup', 'sec_similitud', 'rmsd'])
+    csv_writer.writerow(['conformero_1', 'lim_inf_1', 'lim_sup_1', 'conformero_2', 'lim_inf_2', 'lim_sup_2', 'sec_similitud', 'rmsd'])
     for row in lista:
-      conformero, rmsd, sec_simi, lim_inf, lim_sup = row
-      csv_writer.writerow([conformero, lim_inf, lim_sup, sec_simi, rmsd])
+      conformero_1, rmsd, sec_simi, lim_inf_1, lim_sup_1, conformero_2, lim_inf_2, lim_sup_2 = row
+      csv_writer.writerow([conformero_1, lim_inf_1, lim_sup_1, conformero_2, lim_inf_2, lim_sup_2, sec_simi, rmsd])
 
 def obtener(lista, pdb_id):
   _pdbId = pdb_id.split('_')
@@ -259,14 +290,25 @@ def obtener(lista, pdb_id):
   generarCsv(lista, pdb + '_' + chain)
   conformaciones = []
   for item in lista:
-    conformero, rmsd, sec_simi, lim_inf, lim_sup = item
-    conformacion = {
-      "pdb_id": pdb+'_'+chain,
-      "conformero": conformero,
-      "lim_inf": int(lim_inf),
-      "lim_sup": int(lim_sup),
-      "sec_similitud": float(sec_simi),
-      "rmsd": float(rmsd),
-    }
-    conformaciones.append(conformacion)
+    conformero_1, rmsd, sec_simi, lim_inf_1, lim_sup_1, conformero_2, lim_inf_2, lim_sup_2 = item
+    if (conformero_1 == pdb + '_' + chain):
+      conformacion = {
+        "pdb_id": pdb + '_' + chain,
+        "conformero": conformero_2,
+        "lim_inf": int(lim_inf_2),
+        "lim_sup": int(lim_sup_2),
+        "sec_similitud": float(sec_simi),
+        "rmsd": float(rmsd)
+      }
+      conformaciones.append(conformacion)
+    if (conformero_2 == pdb + '_' + chain):
+      conformacion = {
+        "pdb_id": pdb + '_' + chain,
+        "conformero": conformero_1,
+        "lim_inf": int(lim_inf_1),
+        "lim_sup": int(lim_sup_1),
+        "sec_similitud": float(sec_simi),
+        "rmsd": float(rmsd)
+      }
+      conformaciones.append(conformacion)  
   return conformaciones

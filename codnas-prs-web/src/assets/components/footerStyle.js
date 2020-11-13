@@ -4,7 +4,7 @@ const footerStyle = {
     borderTop: "1px solid #E7E7E7",
     textAlign: "center",
     padding: "20px",
-    left: "0",
+    right: "0",
     bottom: "0",
     position: "fixed",
     height: "20px",

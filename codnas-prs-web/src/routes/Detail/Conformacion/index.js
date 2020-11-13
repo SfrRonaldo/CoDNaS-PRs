@@ -94,7 +94,7 @@ function TablePaginationActions(props) {
 
 const useStyles = makeStyles(styles);
 
-const Conformacion = ({ data }) => {
+const Conformacion = ({ data, regiones }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -115,89 +115,97 @@ const Conformacion = ({ data }) => {
           <Card className={classes.card}>
             <CardContent>
               <h2 className={classes.title}>Conformaciones</h2>
-              <TableContainer component={Paper}>
-                <Table
-                  className={classes.table}
-                  size="small"
-                  aria-label="simple data"
-                >
-                  <TableHead>
-                    <TableRow>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        className={classes.cell}
-                      >
-                        PDB ID
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        className={classes.cell}
-                      >
-                        LIMITE INFERIOR
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        className={classes.cell}
-                      >
-                        LIMITE SUPERIOR
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        className={classes.cell}
-                      >
-                        SEC. SIMILITUD
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        className={classes.cell}
-                      >
-                        RMSD
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {data
-                      .slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                      .map((r, id) => (
-                        <TableRow key={id}>
-                          <TableCell>{r.conformero}</TableCell>
-                          <TableCell>{r.lim_inf}</TableCell>
-                          <TableCell>{r.lim_sup}</TableCell>
-                          <TableCell>{r.sec_similitud}</TableCell>
-                          <TableCell>{r.rmsd}</TableCell>
+              {data.map((item, i) => (
+                <div key={i}>
+                  <h3 className={classes.title}>
+                    Región {i + 1}: {regiones[i].lim_inf} -{" "}
+                    {regiones[i].lim_sup}
+                  </h3>
+                  <TableContainer component={Paper}>
+                    <Table
+                      className={classes.table}
+                      size="small"
+                      aria-label="simple data"
+                    >
+                      <TableHead>
+                        <TableRow>
+                          <TableCell
+                            component="th"
+                            scope="row"
+                            className={classes.cell}
+                          >
+                            PDB ID
+                          </TableCell>
+                          <TableCell
+                            component="th"
+                            scope="row"
+                            className={classes.cell}
+                          >
+                            LIMITE INFERIOR
+                          </TableCell>
+                          <TableCell
+                            component="th"
+                            scope="row"
+                            className={classes.cell}
+                          >
+                            LIMITE SUPERIOR
+                          </TableCell>
+                          <TableCell
+                            component="th"
+                            scope="row"
+                            className={classes.cell}
+                          >
+                            SEC. SIMILITUD
+                          </TableCell>
+                          <TableCell
+                            component="th"
+                            scope="row"
+                            className={classes.cell}
+                          >
+                            RMSD
+                          </TableCell>
                         </TableRow>
-                      ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <TablePagination
-                rowsPerPageOptions={[
-                  5,
-                  10,
-                  15,
-                  { label: "Todo", value: data.length },
-                ]}
-                component="div"
-                count={data.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                SelectProps={{
-                  inputProps: { "aria-label": "PDB por página" },
-                  native: true,
-                }}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
-                labelRowsPerPage="PDB por página"
-              />
+                      </TableHead>
+                      <TableBody>
+                        {item
+                          .slice(
+                            page * rowsPerPage,
+                            page * rowsPerPage + rowsPerPage
+                          )
+                          .map((r, id) => (
+                            <TableRow key={id}>
+                              <TableCell>{r.conformero}</TableCell>
+                              <TableCell>{r.lim_inf}</TableCell>
+                              <TableCell>{r.lim_sup}</TableCell>
+                              <TableCell>{r.sec_similitud}</TableCell>
+                              <TableCell>{r.rmsd}</TableCell>
+                            </TableRow>
+                          ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[
+                      5,
+                      10,
+                      15,
+                      { label: "Todo", value: item.length },
+                    ]}
+                    component="div"
+                    count={item.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    SelectProps={{
+                      inputProps: { "aria-label": "PDB por página" },
+                      native: true,
+                    }}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                    ActionsComponent={TablePaginationActions}
+                    labelRowsPerPage="PDB por página"
+                  />
+                </div>
+              ))}
             </CardContent>
           </Card>
         </GridItem>

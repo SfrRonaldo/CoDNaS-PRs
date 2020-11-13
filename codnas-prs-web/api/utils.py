@@ -13,6 +13,6 @@ def clean():
   limpiarData('./Script/Conformers/')
   limpiarData('./Script/CsvFiles/')
   limpiarData('./Script/PDBFiles/')
-  limpiarData('./Script/PDBStructure/')
+  #limpiarData('./Script/PDBStructure/')
   limpiarData('./Script/SupFiles/')
   limpiarData('./Script/TextFiles/')

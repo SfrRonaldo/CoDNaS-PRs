@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../../assets/views/tutorialStyle";
 import Section1 from "./Section1";
 import Section2 from "./Section2";
@@ -10,6 +10,9 @@ const useStyles = makeStyles(styles);
 
 export default function Tutorial() {
   const classes = useStyles();
+  useEffect(() => {
+    document.title = "Título";
+  });
   return (
     <div className={classes.root}>
       <div className={classes.container}>

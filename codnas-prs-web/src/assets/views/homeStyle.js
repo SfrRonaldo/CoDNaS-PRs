@@ -37,9 +37,9 @@ const homeStyle = {
   root: {
     backgroundImage: "url(/background.PNG)",
     backgroundSize: "auto",
-    height: "100%",
-    width: "100%",
-    paddingBottom: 260,
+    height: "auto",
+    width: "auto",
+    paddingBottom: 500,
   },
 };
 

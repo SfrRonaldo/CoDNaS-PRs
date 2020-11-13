@@ -18,7 +18,7 @@ const App = () => (
         color="primary"
         changeColorOnScroll={{ height: 400, color: "dark" }}
       />
-      <main>
+      <main style={{ flex: "1" }}>
         <Switch>
           <Route path="/home" component={Home} />
           <Route path="/tutorial" component={Tutorial} />
@@ -27,13 +27,12 @@ const App = () => (
           <Route path="/" component={Home} />
         </Switch>
       </main>
-      <Footer>
-        <span>
-          &copy; {1900 + new Date().getYear()}, Hecho por Ronaldo Romario Tunque
-          Cahui
-        </span>
-      </Footer>
     </div>
+    <Footer>
+      <span>
+        &copy; {1900 + new Date().getYear()}, Hecho por Ronaldo Tunque Cahui
+      </span>
+    </Footer>
   </Router>
 );
 

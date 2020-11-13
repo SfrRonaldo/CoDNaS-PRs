@@ -5,7 +5,7 @@ import styles from "../../assets/views/detailStyle";
 import InfoGeneral from "./InfoGeneral";
 import Conformacion from "./Conformacion";
 import InfoEstructural from "./InfoEstructural";
-import { Button } from "@material-ui/core";
+import { Button, CircularProgress } from "@material-ui/core";
 
 const useStyles = makeStyles(styles);
 
@@ -15,7 +15,7 @@ export default function Estimacion() {
   const [conformacion, setConformacion] = useState(null);
   const [infoEstructural, setInfoEstructural] = useState(null);
 
-  useEffect(() => {
+  /*useEffect(() => {
     fetchEstimar(id);
   }, [id]);
 
@@ -25,6 +25,36 @@ export default function Estimacion() {
     setInfoGeneral(data.info_general);
     setInfoEstructural(data.info_estructural);
     setConformacion(data.conformacion);
+  };*/
+  useEffect(() => {
+    document.title = "Estimación";
+    fetchLimpiar();
+    fetchInfoGeneral(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  const fetchLimpiar = async () => {
+    await fetch("/api/Limpiar/");
+  };
+
+  const fetchInfoGeneral = async (id) => {
+    const result = await fetch("/api/EstimarInfoGeneral/".concat(id));
+    const data = await result.json();
+    setInfoGeneral(data);
+    fetchConformacion(id);
+  };
+
+  const fetchInfoEstructural = async (id) => {
+    const result = await fetch("/api/EstimarInfoEstructural/".concat(id));
+    const data = await result.json();
+    setInfoEstructural(data);
+  };
+
+  const fetchConformacion = async (id) => {
+    const result = await fetch("/api/EstimarConformacion/".concat(id));
+    const data = await result.json();
+    setConformacion(data);
+    fetchInfoEstructural(id);
   };
 
   const classes = useStyles();
@@ -42,6 +72,13 @@ export default function Estimacion() {
             key={id}
           />
         )}
+        {!infoGeneral && (
+          <>
+            <div style={{ marginTop: "200px" }} className={classes.container}>
+              <CircularProgress />
+            </div>
+          </>
+        )}
       </div>
       <br />
       <div className={classes.container}>
@@ -53,20 +90,40 @@ export default function Estimacion() {
             rmsd_avg={infoEstructural.rmsd_avg}
           />
         )}
+        {!infoEstructural && (
+          <div className={classes.container}>
+            <CircularProgress />
+          </div>
+        )}
       </div>
       <br />
-      <div className={classes.container} style={{ marginBottom: "30px" }}>
-        {conformacion && <Conformacion data={conformacion} />}
-      </div>
       <div className={classes.container} style={{ marginBottom: "100px" }}>
-        <Button
-          variant="contained"
-          style={{ backgroundColor: "#cb6768", color: "white" }}
-          href="/home"
-        >
-          Regresar
-        </Button>
+        {conformacion && (
+          <div>
+            <Conformacion data={conformacion} />
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: "#cb6768",
+                color: "white",
+                marginTop: "30px",
+              }}
+              href="/home"
+            >
+              Regresar
+            </Button>
+          </div>
+        )}
+        {!conformacion && (
+          <div className={classes.container}>
+            <CircularProgress />
+          </div>
+        )}
       </div>
+      <div
+        className={classes.container}
+        style={{ marginBottom: "100px" }}
+      ></div>
     </div>
   );
 }

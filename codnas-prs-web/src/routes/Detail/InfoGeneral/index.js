@@ -23,6 +23,8 @@ const InfoGeneral = ({
   organism,
   long_secuencia,
   rank,
+  cluster,
+  num_regiones,
 }) => {
   const classes = useStyles();
   return (
@@ -87,6 +89,26 @@ const InfoGeneral = ({
                         Clasificación:
                       </TableCell>
                       <TableCell>{rank}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        style={{ fontWeight: "bold" }}
+                      >
+                        Cluster:
+                      </TableCell>
+                      <TableCell>{cluster}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        style={{ fontWeight: "bold" }}
+                      >
+                        Regiones repetidas:
+                      </TableCell>
+                      <TableCell>{num_regiones}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>

@@ -5,7 +5,7 @@ def descargarPDB(pdb):
   pdbl = PDBList()
   pdbl.retrieve_pdb_file(pdb, pdir = './Script/PDB', file_format = 'pdb')
   parser = PDBParser()
-  ent_file ='./Script/PDB/pdb' + pdb + '.ent'
+  ent_file ='./Script/PDB/pdb' + pdb.lower() + '.ent'
   structure = parser.get_structure(pdb, ent_file)
   io = PDBIO()
   io.set_structure(structure)
@@ -68,7 +68,7 @@ def obtenerInfoGeneral(pdb_id):
     organismo = 'no_data'
   if (nombre == ''):
     nombre = 'no_data'
-  region_repetida = '[' + lim_inf + ' - ' + lim_sup + ']'
+  region_repetida = lim_inf + ' - ' + lim_sup
   info_estructural = {
     "pdb_id": pdb+'_'+chain,
     "nombre_proteina": nombre,
@@ -80,6 +80,6 @@ def obtenerInfoGeneral(pdb_id):
   return info_estructural
 
 def obtener(pdb_id):
-  descargarPDB(pdb_id[:4])
+  #descargarPDB(pdb_id[:4])
   info_general = obtenerInfoGeneral(pdb_id)
   return info_general

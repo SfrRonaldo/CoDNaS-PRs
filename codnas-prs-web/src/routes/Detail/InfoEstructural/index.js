@@ -16,12 +16,7 @@ import styles from "./infoEstructuralStyle";
 
 const useStyles = makeStyles(styles);
 
-const InfoEstructural = ({
-  num_conformaciones,
-  rmsd_min,
-  rmsd_max,
-  rmsd_avg,
-}) => {
+const InfoEstructural = ({ data, regiones }) => {
   const classes = useStyles();
   return (
     <div>
@@ -30,48 +25,56 @@ const InfoEstructural = ({
           <Card className={classes.card}>
             <CardContent>
               <h2 className={classes.title}>Información Estructural</h2>
-              <TableContainer component={Paper}>
-                <Table className={classes.table} arial-label="simple data">
-                  <TableBody>
-                    <TableRow>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        style={{ fontWeight: "bold" }}
-                      >
-                        #Conformaciones:
-                      </TableCell>
-                      <TableCell>{num_conformaciones}</TableCell>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        style={{ fontWeight: "bold" }}
-                      >
-                        RMSD Mínimo:
-                      </TableCell>
-                      <TableCell>{rmsd_min}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        style={{ fontWeight: "bold" }}
-                      >
-                        RMSD Máximo:
-                      </TableCell>
-                      <TableCell>{rmsd_max}</TableCell>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        style={{ fontWeight: "bold" }}
-                      >
-                        RMSD Promedio:
-                      </TableCell>
-                      <TableCell>{rmsd_avg}</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
+              {data.map((item, i) => (
+                <div key={i}>
+                  <h3 className={classes.title}>
+                    Región {item.region}: {regiones[i].lim_inf} -{" "}
+                    {regiones[i].lim_sup}
+                  </h3>
+                  <TableContainer component={Paper}>
+                    <Table className={classes.table} arial-label="simple data">
+                      <TableBody>
+                        <TableRow>
+                          <TableCell
+                            component="th"
+                            scope="row"
+                            style={{ fontWeight: "bold" }}
+                          >
+                            #Conformaciones:
+                          </TableCell>
+                          <TableCell>{item.num_conformaciones}</TableCell>
+                          <TableCell
+                            component="th"
+                            scope="row"
+                            style={{ fontWeight: "bold" }}
+                          >
+                            RMSD Mínimo:
+                          </TableCell>
+                          <TableCell>{item.rmsd_min}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell
+                            component="th"
+                            scope="row"
+                            style={{ fontWeight: "bold" }}
+                          >
+                            RMSD Máximo:
+                          </TableCell>
+                          <TableCell>{item.rmsd_max}</TableCell>
+                          <TableCell
+                            component="th"
+                            scope="row"
+                            style={{ fontWeight: "bold" }}
+                          >
+                            RMSD Promedio:
+                          </TableCell>
+                          <TableCell>{item.rmsd_avg}</TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </div>
+              ))}
             </CardContent>
           </Card>
         </GridItem>
